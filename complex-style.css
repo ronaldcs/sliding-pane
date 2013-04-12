@@ -1,0 +1,84 @@
+@font-face {
+  font-family: qlassik;
+  src: url(../resources/fonts/qlassik.eot);
+  src: local("Qlassik"), url(../resources/fonts/qlassik.ttf) format("truetype");
+}
+html, body {
+  background-color: #4682b4;
+  font-family: qlassik;
+  font-size: 1.1em;
+}
+#my-div { /* Give your main div some style */
+  padding: 10px;
+  background-color: #808080;
+  height: 200px;
+  text-align: center;
+}
+#my-div pre { /* Pre has a default margin? Didn't know that */
+  margin: 0px;
+}
+#my-div-to-hide { /* Give your settings pane some style */
+  background-color: #000;
+  background-image: url(bg.png);
+  color: #fff;
+  height: 100%;
+  padding: 30px 10px 10px 10px;
+}
+#my-destruction { /* Give your settings pane some style */
+  background-color: #000;
+  background-image: url(bg.png);
+  color: #fff;
+  height: 100%;
+  padding-top: 50%;
+}
+#toggle, #save { /* Give your buttons some style */
+  padding: 10px;
+  margin: 5px;
+  font-size: 1em;
+  font-weight: bold;
+  color: #fff;
+  background-color: #333;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  width: 120px;
+  text-align: center;
+}
+#self-destruct {
+  border: 1px solid white;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: fireBrick;
+  color: white;
+  width: 80px;
+  text-align: center;
+  box-shadow: 0px 2px 15px black;
+  margin-left: auto;
+  margin-right: auto;
+}
+#self-destruct:hover {
+  cursor: not-allowed;
+}
+#data-table {
+
+}
+#data-table th {
+  background-color: #666;
+  color: #fff;
+  padding: 15px;
+}
+#data-table td {
+  background-color: #ddd;
+}
+#data-table input {
+  height: 40px;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+#data-table .my-div-cell, #data-table .my-div-hidden-cell {
+  padding: 15px;
+  background-color: #ddd;
+}
+#data-table .my-div-hidden-cell {
+  background-color: #aaa;
+  height: 100%;
+}

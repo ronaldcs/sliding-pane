@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <title>Sliding Pane Complex Test</title>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="apple-touch-fullscreen" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+  <link rel='stylesheet' href='complex-style.css' type='text/css'>
+  <script type="text/javascript" src="sliding-pane.js"></script>
+  <script type="text/javascript">
+    var settingsPane = null,
+      destructionPane = null,
+      destructionButton = null;
+    function r(f){/in/.test(document.readyState)?setTimeout('r('+f+')',9):f()}; // However you want to do document ready.
+    r(function () {
+      settingsPane = new SlidingPane({
+        id: 'my-div-to-hide',
+        targetId: 'my-div',
+        side: 'bottom',
+        width: 200,
+        duration: 0.75,
+        timingFunction: 'ease'
+      });
+      // NOTE: Since my-destruction div does not exist in the HTML source, it will automatically be generated
+      destructionPane = new SlidingPane({
+        id: 'my-destruction',
+        targetId: 'my-div-2',
+        side: 'top',
+        width: 130,
+        duration: 0.75,
+        timingFunction: 'ease'
+      });
+      // Dynamically add content to my-destruction div
+      destructionButton = document.createElement('div');
+      // NOTE: Make sure you set absolute position and inherit the width!
+      destructionButton.id = 'self-destruct';
+      destructionButton.innerHTML = 'Self Destruct';
+      // Add the button; remember your component's id is "my-destruction", so use that
+      document.querySelector('#my-destruction').appendChild(destructionButton);
+      document.querySelector('#self-destruct').addEventListener('click', function () {
+        alert('boom.');
+      });
+
+      // Add various handlers
+      document.querySelector('#toggle').addEventListener('click', function () {
+        settingsPane.toggle();
+      });
+      document.querySelector('#save').addEventListener('click', function () {
+        settingsPane.close();
+      });
+      // NOTE: The visible content div is wrapped in a "<targetId>-component" div element, so use that in your selectors for event handlers
+      document.querySelector('#my-div-2-component').addEventListener('mouseover', function () {
+        destructionPane.open();
+      });
+      document.querySelector('#my-div-2-component').addEventListener('mouseout', function () {
+        destructionPane.close();
+      });
+    });
+  </script>
+</head>
+<body>
+  <a href="index.html">Click here for a simple example</a>
+  <br />
+  <a href="very-complex.html">Click here for a very complex example</a>
+  <br />
+  <br />
+  <div id='other-stuff'>
+    THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG.<br />
+    THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG.<br />
+    THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG.<br />
+    THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG.<br />
+    THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG.<br />
+  </div>
+  <div id='toggle'>Toggle Settings</div>
+  <div style='width: 100%;'>
+    <div style='float:left; width: 100px; height: 200px; padding: 10px; text-align: center; background-color: #ccc;'>Some Content To The Left</div>
+    <div id='my-div-to-hide-container' style='float:left; width: 200px;'>
+      <!--
+      If you want to define HTML fragment for your hidden div ahead of time, just make sure:
+        1) The div to hide (in this case, my-div-to-hide) exists somewhere in the DOM.
+        2) The div to hide must not be a child of the target div or vice-versa.
+      -->
+      <div id='my-div-to-hide'>
+        <div style="margin: 5px;">My Settings Go Here</div>
+        <div style="border: 1px solid #fff; border-radius: 10px; padding: 10px;">
+          <input type="radio" name="group1" id="option1"><label for="option1">Option 1</label></input><br />
+          <input type="radio" name="group1" id="option2"><label for="option2">Option 2</label></input><br />
+          <input type="radio" name="group1" id="option3"><label for="option3">Option 3</label></input><br />
+        </div>
+        <div id="save" style="width: 50px; margin: 10px 0;">Save</div>
+      </div>
+      <!-- In the below example, my-div-to-hide exists above so we'll use that -->
+      <div id='my-div'>
+        Some Content In The Middle
+      </div>
+    </div>
+    <!-- In the below example, my-div-2 doesn't have an existing div to hide, so it creates it; in this case, "my-destruction" -->
+    <div id='my-div-2' style='float:left; width: 100px; height: 200px; padding: 10px; text-align: center; background-color: #999;'>
+      Some Content To The Right
+      <div style="margin-top: 20px; font-size: 0.9em; margin-right: auto; margin-left: auto; color: #000099;">
+        You can mouse over to open, too!<br /><br />The content underneath was added dynamically.
+      </div>
+    </div>
+  </div>
+</body>
+</html>

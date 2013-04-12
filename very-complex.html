@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <title>Sliding Pane Very Complex Test</title>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="apple-touch-fullscreen" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+  <link rel='stylesheet' href='complex-style.css' type='text/css'>
+  <script type="text/javascript" src="sliding-pane.js"></script>
+  <script type="text/javascript">
+    var slidingPane = [];
+    function r(f){/in/.test(document.readyState)?setTimeout('r('+f+')',9):f()}; // However you want to do document ready.
+    r(function () {
+      var dataTable = [
+        {
+          col1: "row1, col1",
+          col2: "row1, col2",
+          col3: "row1, col3",
+          col4: "row1, col4",
+          action: "<input type='button' value='Open!' />"
+        },
+        {
+          col1: "row2, col1",
+          col2: "row2, col2",
+          col3: "row2, col3",
+          col4: "row2, col4",
+          action: "<input type='button' value='Open!' />"
+        },
+        {
+          col1: "row3, col1",
+          col2: "row3, col2",
+          col3: "row3, col3",
+          col4: "row3, col4",
+          action: "<input type='button' value='Open!' />"
+        },
+        {
+          col1: "row4, col1",
+          col2: "row4, col2",
+          col3: "row4, col3",
+          col4: "row4, col4",
+          action: "<input type='button' value='Open!' />"
+        }
+      ];
+      var buildTable = function () {
+        var table = document.getElementById('data-table');
+        var headerRow = document.createElement('tr');
+        for(var p in dataTable[0]) {
+          var headerCol = document.createElement('th');
+          headerCol.innerHTML = p;
+          headerRow.appendChild(headerCol);
+        };
+        table.appendChild(headerRow);
+        for(var i = 0; i < dataTable.length; i++) {
+          var dataRow = document.createElement('tr');
+          for(var p in dataTable[i]) {
+            var dataCol = document.createElement('td');
+            var dataColDiv = document.createElement('div');
+            dataColDiv.setAttribute('class', 'my-div-cell');
+            if(p == 'action') {
+              var dataColHiddenDiv = document.createElement('div');
+              dataColHiddenDiv.id = 'my-div-cell-to-hide-' + i;
+              dataColHiddenDiv.innerHTML = "<input type='button' value='Close!' />";
+              dataColHiddenDiv.setAttribute('class', 'my-div-hidden-cell');
+              dataColHiddenDiv.setAttribute('datakey', i);
+              dataCol.appendChild(dataColHiddenDiv);
+              dataColDiv.id = 'my-div-cell-' + i;
+              dataColDiv.setAttribute('datakey', i);
+              dataColDiv.innerHTML = dataTable[i][p];
+            }
+            else {
+              dataColDiv.innerHTML = dataTable[i][p];
+            };
+            dataCol.appendChild(dataColDiv);
+            dataRow.appendChild(dataCol);
+          };
+          table.appendChild(dataRow);
+          /* Set handlers for the Open button */
+          document.querySelector('#my-div-cell-' + i + ' input').addEventListener('click', function (e) {
+            var which = e.target.parentElement.getAttribute('datakey');
+            slidingPane[which].toggle();
+          });
+          /* Set handlers for the Close button */
+          document.querySelector('#my-div-cell-to-hide-' + i + ' input').addEventListener('click', function (e) {
+            var which = e.target.parentElement.getAttribute('datakey');
+            slidingPane[which].toggle();
+          });
+          /* Set up the Sliding Pane */
+          slidingPane[i] = new SlidingPane({
+            id: 'my-div-cell-to-hide-' + i,
+            targetId: 'my-div-cell-' + i,
+            side: 'bottom',
+            width: 72,
+            duration: 0.25,
+            timingFunction: 'ease'
+          });
+        };
+      };
+      buildTable();
+    });
+  </script>
+</head>
+<body>
+  <a href="index.html">Click here for a simple example</a>
+  <br />
+  <a href="complex.html">Click here for a complex example</a>
+  <br />
+  <br />
+  <div id="data-table-container">
+    <table id="data-table"></table>
+  </div>
+</body>
+</html>

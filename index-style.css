@@ -1,0 +1,42 @@
+@font-face {
+  font-family: qlassik;
+  src: url(../resources/fonts/qlassik.eot);
+  src: local("Qlassik"), url(../resources/fonts/qlassik.ttf) format("truetype");
+}
+html, body {
+  background-color: #4682b4;
+  margin: 0px;
+  height: 100%; /* Need this for whole page to work */
+  font-family: qlassik;
+  font-size: 1.1em;
+}
+#my-div { /* Give your main div some style */
+  background-color: #808080;
+  padding: 10px;
+  min-height: 100%; /* Need this for whole page to work */
+}
+#my-div pre { /* Pre has a default margin? Didn't know that */
+  margin: 0px;
+}
+#my-div-to-hide { /* Give your settings pane some style */
+  background-color: #000;
+  background-image: url(bg.png);
+  color: #fff;
+  height: 100%;
+}
+#my-div-to-hide-contents {
+  padding: 10px;
+  width: 150px;
+}
+#toggle, #save { /* Give your buttons some style */
+  padding: 10px;
+  margin: 5px;
+  font-size: 1em;
+  font-weight: bold;
+  color: #fff;
+  background-color: #333;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  width: 120px;
+  text-align: center;
+}

@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+  <title>Sliding Pane Simple Test</title>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="apple-touch-fullscreen" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+  <link rel='stylesheet' href='index-style.css' type='text/css'>
+  <!--<script type="text/javascript" src="../../dashboard/apps/mobile/resources/js/ccur/ccur.core.js"></script>-->
+  <script type="text/javascript" src="sliding-pane.js"></script>
+  <script type="text/javascript">
+    var settingsPane = null;
+    function r(f){/in/.test(document.readyState)?setTimeout('r('+f+')',9):f()}; // However you want to do document ready.
+    r(function () {
+      document.querySelector('#my-div').style.height = document.querySelector('html').getBoundingClientRect().height;
+      console.log(document.querySelector('#my-div').getBoundingClientRect().height);
+      settingsPane = new SlidingPane({
+        id: 'my-div-to-hide',
+        targetId: 'my-div',
+        side: 'left',
+        width: 200,
+        duration: 0.3,
+        timingFunction: 'ease',
+        shadowStyle: '0px 0px 30px #000' /* or 'none' or ... */
+      });
+      document.querySelector('#toggle').addEventListener('click', function () {
+        settingsPane.toggle();
+      });
+      document.querySelector('#save').addEventListener('click', function () {
+        settingsPane.close();
+      });
+    });
+  </script>
+</head>
+<body>
+  <div id='my-div-to-hide'>
+    <div id='my-div-to-hide-contents'>
+      <div style="margin: 5px;">My Settings Go Here</div>
+      <div style="border: 1px solid #fff; border-radius: 10px; padding: 10px;">
+        <input type="radio" name="group1" id="option1"><label for="option1">Option 1</label></input><br />
+        <input type="radio" name="group1" id="option2"><label for="option2">Option 2</label></input><br />
+        <input type="radio" name="group1" id="option3"><label for="option3">Option 3</label></input><br />
+      </div>
+      <div id="save" style="width: 50px; margin: 10px 0;">Save</div>
+    </div>
+  </div>
+  <div id='my-div'>
+    <a href="complex.html">Click here for a complex example</a>
+    <br />
+    <a href="very-complex.html">Click here for a very complex example</a>
+    <br />
+    <br />
+    <div id='other-stuff'>
+      THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG.<br />
+      THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG.<br />
+      THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG.<br />
+      THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG.<br />
+      THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG.<br />
+    </div>
+    <div id='toggle'>Toggle Settings</div>
+<pre>
+HELLO, WORLD!
+HELLO, WORLD!
+HELLO, WORLD!
+HELLO, WORLD!
+HELLO, WORLD!
+</pre>
+  </div>
+<!-- Super simple code follows!
+  <div id='my-div-to-hide'>
+    My "Options" Goes Here
+  </div>
+  <div id='my-div'>
+    My Page Content Goes Here
+  </div>
+-->
+</body>
+</html>
